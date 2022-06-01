@@ -1,0 +1,32 @@
+
+name: CI-CD-Pipeline-AWS
+env:
+
+  EB_PACKAGE_S3_BUCKET_NAME : "zuka-github"
+  EB_APPLICATION_NAME       : "zukaapp"
+  EB_ENVIRONMENT_NAME       : "Zukaapp-env"
+  DEPLOY_PACKAGE_NAME       : "zukaa_app_${{ github.sha }}.zip"
+  AWS_REGION_NAME           : "eu-north-1"
+
+
+
+on:
+  push:
+    branches: [ master ]
+ 
+
+
+
+jobs:
+  my_ci_part: 
+    runs-on: ubuntu-latest
+ 
+    
+    steps:
+      - uses: actions/checkout@1
+      - name: Git Clone our Repo
+    
+      - name: Create Zip
+      - run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+
+
